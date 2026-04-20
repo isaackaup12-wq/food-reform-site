@@ -1,0 +1,115 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+
+export default function App() {
+  const [signed, setSigned] = useState(false);
+  const [count, setCount] = useState(1284);
+
+  const data = [
+    { year: 2000, UPF: 45 },
+    { year: 2005, UPF: 50 },
+    { year: 2010, UPF: 55 },
+    { year: 2015, UPF: 58 },
+    { year: 2020, UPF: 60 },
+  ];
+
+  function handleSign() {
+    if (!signed) {
+      setSigned(true);
+      setCount(count + 1);
+    }
+  }
+
+  return (
+    <div className="bg-black text-white min-h-screen font-sans">
+
+      {/* HERO */}
+      <div className="text-center p-12 bg-gradient-to-r from-red-600 to-red-400">
+        <h1 className="text-5xl font-bold mb-4">Beyond the Label</h1>
+        <p className="text-xl">The Hidden Health Crisis in Ultra-Processed Foods</p>
+      </div>
+
+      {/* STAT */}
+      <section className="p-10 text-center">
+        <h2 className="text-3xl mb-4">The Reality</h2>
+        <p className="text-4xl text-red-400 font-bold">60% of U.S. diets = ultra-processed foods</p>
+      </section>
+
+      {/* GRAPH */}
+      <section className="p-10">
+        <h2 className="text-2xl mb-6 text-center">Rise of Ultra-Processed Foods</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={data}>
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="UPF" />
+          </LineChart>
+        </ResponsiveContainer>
+      </section>
+
+      {/* EVIDENCE */}
+      <section className="p-10 grid md:grid-cols-2 gap-6">
+        <div className="bg-gray-900 p-6 rounded-xl">
+          <h3 className="text-xl mb-2">Cancer Risk</h3>
+          <p className="italic">
+            “Higher consumption of ultra-processed foods was associated with increased cancer risk.”
+          </p>
+          <p className="mt-2 text-sm text-gray-400">— British Medical Journal</p>
+        </div>
+
+        <div className="bg-gray-900 p-6 rounded-xl">
+          <h3 className="text-xl mb-2">Chronic Disease</h3>
+          <p>
+            Linked to obesity, hypertension, and type 2 diabetes.
+          </p>
+          <p className="mt-2 text-sm text-gray-400">— American Heart Association</p>
+        </div>
+
+        <div className="bg-gray-900 p-6 rounded-xl">
+          <h3 className="text-xl mb-2">Children at Risk</h3>
+          <p className="italic">
+            “Children are more vulnerable to additive toxicity due to lower body weight.”
+          </p>
+          <p className="mt-2 text-sm text-gray-400">— Kraemer Study</p>
+        </div>
+
+        <div className="bg-gray-900 p-6 rounded-xl">
+          <h3 className="text-xl mb-2">Regulation Failure</h3>
+          <p className="italic">
+            “Ultra-processed foods are largely missing from U.S. food policy.”
+          </p>
+          <p className="mt-2 text-sm text-gray-400">— Pomeranz</p>
+        </div>
+      </section>
+
+      {/* PETITION */}
+      <section className="p-10 text-center">
+        <h2 className="text-3xl mb-4">Take Action</h2>
+        <p className="mb-6">Demand stricter food safety laws and transparency.</p>
+
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={handleSign}
+          className="bg-red-600 px-6 py-3 text-lg rounded-xl"
+        >
+          {signed ? "Signed ✔" : "Sign the Petition"}
+        </motion.button>
+
+        <p className="mt-4 text-gray-400">{count} people have signed</p>
+      </section>
+
+      {/* CTA */}
+      <section className="p-10 text-center">
+        <h2 className="text-2xl mb-4">What You Can Do</h2>
+        <ul className="space-y-2">
+          <li>✔ Reduce ultra-processed food intake</li>
+          <li>✔ Support policy reform</li>
+          <li>✔ Educate others</li>
+        </ul>
+      </section>
+
+    </div>
+  );
+}
